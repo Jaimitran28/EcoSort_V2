@@ -51,7 +51,7 @@ ecosort_v2/
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/jaimitran28/ecosortv2.git
+git clone https://github.com/Jaimitran28/EcoSort_V2.git
 cd ecosort
 ```
 
