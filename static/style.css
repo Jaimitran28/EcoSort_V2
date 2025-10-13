@@ -515,3 +515,50 @@ section {
   50% { box-shadow: 0 0 20px 8px rgba(0,194,255,0.2); }
 }
 
+/* Did You Know? */
+.fact-box {
+  cursor: pointer;
+  max-width: 100%;
+  padding: 0;
+  color: #fff; /* keep text visible on section background */
+  transition: all 0.3s ease;
+  line-height: 1.4;
+}
+
+/* Divider between short and long fact */
+.divider {
+  height: 1px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.3); /* subtle white line */
+  margin: 0.25rem 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show divider on hover */
+.fact-box:hover .divider {
+  opacity: 100;
+}
+
+/* Remove hover background */
+.fact-box:hover {
+  background: none;
+}
+
+#factDetail {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  margin-top: 0.25rem;
+}
+
+.fact-box:hover #factDetail {
+  max-height: 500px; /* enough for full fact */
+  opacity: 1;
+}
+
+#factBox.fade {
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
