@@ -1,7 +1,7 @@
 # ai.py
 import google.generativeai as genai
 import re
-from keywords import keyword_map
+from rules import keyword_map
 
 # --- Configure Gemini API ---
 API_KEY = "AIzaSyAAQE852yk3wBugXD7zU-hrwv9ED3gxcxU"
@@ -34,7 +34,7 @@ PREDEFINED_TIPS = {
     ]
 }
 
-
+# Use to convert the markdown list from Gemini into a clean list of tips
 def parse_tips(raw_text: str, max_points: int = 3) -> list:
     """
     Parse Gemini response and return a clean list of numbered tips.
@@ -50,7 +50,7 @@ def parse_tips(raw_text: str, max_points: int = 3) -> list:
 
     return points[:max_points]
 
-
+# Main function to generate disposal/reuse tips
 async def generate_disposal_tips(item_name: str, category: str = None) -> list:
     """
     Generate disposal/reuse tips.
