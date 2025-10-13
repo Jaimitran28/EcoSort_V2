@@ -29,7 +29,7 @@ You can upload an image of an item or describe it in text, and the system will u
 ecosort_v2/
 │── app.py                # Flask app entry point
 │── classifier.py         # AI image/text classification logic
-│── keywords.py           # Rule-based classifier 
+│── rules.py              # Rule-based classifier 
 │── ai.py                 # Gemini AI integration for tips      
 │── templates/
 │   └── base.html         # Base template with blocks
@@ -51,7 +51,7 @@ ecosort_v2/
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/Jaimitran28/EcoSort_V2.git
+git clone https://github.com/jaimitran28/ecosortv2.git
 cd ecosort
 ```
 
@@ -71,8 +71,8 @@ pip install -r requirements.txt
 ```bash
 uvicorn app:app --reload
 ```
-App will be available at: `localhost:8000` and `http://127.0.0.1:8000`
-To use the live camera and mic features it is recommended to run the app in `localhost:8000`
+App will be available at:`http://127.0.0.1:8000`
+To use the live camera and mic features allow camera and microphone in page settings
 
 ---
 
