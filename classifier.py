@@ -5,8 +5,9 @@ import torch
 from torchvision import models, transforms
 from torchvision.models import MobileNet_V2_Weights, ResNet18_Weights
 import requests
-from keywords import keyword_map
+from rules import keyword_map
 from ai import PREDEFINED_TIPS, generate_disposal_tips
+
 # --- Load Models ---
 mobilenet = models.mobilenet_v2(weights=MobileNet_V2_Weights.DEFAULT)
 mobilenet.eval()
@@ -36,7 +37,7 @@ def map_to_category(text: str):
             return category
     return "unknown"
 
-
+#--- Main Classification Function ---
 async def classify_image(file):
     try:
         img_bytes = file.read()
