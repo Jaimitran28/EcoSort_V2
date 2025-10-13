@@ -1,3 +1,7 @@
+// static/script.js
+
+// Main JavaScript for handling UI interactions, predictions, camera, voice input, and animations
+
 document.addEventListener("DOMContentLoaded", () => {
   const fileInput = document.getElementById("fileInput");
   const dropzone = document.getElementById("dropzone");
@@ -61,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.readAsDataURL(file);
   }
 
-  // Predict Image (with location)
+  // Predict Image
   predictImageBtn.addEventListener("click", async () => {
     if (!fileInput.files.length) return alert("Please upload an image first!");
 
@@ -141,6 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     textInput.value = "";
   }
 
+  // Clear previous result
   function clearResult() {
     resultCard.classList.add("hidden");
     resultEmpty.style.display = "block";
@@ -211,11 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
   predictsBtn.addEventListener("click", () => showHistory("predicts"));
   uploadsBtn.addEventListener("click", () => showHistory("uploads"));
 
-  // =============================
   // Camera Integration
-  // =============================
-
-
   openCameraBtn.addEventListener("click", async () => {
     try {
       console.log("📸 Open camera clicked");
@@ -246,6 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
     openCameraBtn.textContent = "Open Camera";
   }
 
+  // Capture image from camera
   captureBtn.addEventListener("click", async () => {
     if (!stream) return alert("Camera is not active.");
     const context = cameraCanvas.getContext("2d");
@@ -272,6 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const micButton = document.getElementById("micButton");
   let recognition;
 
+  // Voice Input using Web Speech API
   if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = new SpeechRecognition();
@@ -315,9 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
     micButton.title = "Your browser does not support voice input";
   }
 
-  // ==========================
   // Floating Particles Background
-  // ==========================
   const particleContainer = document.createElement("div");
   particleContainer.classList.add("particle-container");
   document.body.appendChild(particleContainer);
@@ -428,3 +429,35 @@ document.getElementById("textInput").addEventListener("keypress", function (e) {
     document.getElementById("predictTextBtn").click();
   }
 });
+
+// Server-side fact rotation
+const factShort = document.getElementById("factShort");
+const factDetail = document.getElementById("factDetail");
+const factBox = document.getElementById("factBox");
+
+// Fetch and update fact
+async function updateFact() {
+  try {
+    const res = await fetch("/fact"); // your endpoint
+    if (!res.ok) throw new Error("Network error");
+    const fact = await res.json();
+
+    // Fade out/in animation
+    factBox.classList.add("fade");
+    setTimeout(() => {
+      factShort.textContent = fact.short;
+      factDetail.textContent = fact.detail;
+      factBox.classList.remove("fade");
+    }, 300);
+  } catch (err) {
+    console.error("Failed to fetch fact:", err);
+    factShort.textContent = "Failed to load fact.";
+    factDetail.textContent = "";
+  }
+}
+
+// Initial load
+updateFact();
+
+// Rotate fact every 2 minutes
+setInterval(updateFact, 120000);
