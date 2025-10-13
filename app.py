@@ -4,11 +4,10 @@ from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from classifier import classify_image
-from keywords import keyword_map
+from rules import keyword_map, FACTS
 import os
-from ai import generate_disposal_tips, parse_tips  # use parse_tips for cleaning
-
-import requests
+from ai import generate_disposal_tips
+import random
 
 app = FastAPI()
 
@@ -20,18 +19,33 @@ templates = Jinja2Templates(directory="templates")
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-
-# ----------------------------
-# ROUTES
-# ----------------------------
+# Home route
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     """
-    Render the main web page.
+    Render the main web page with a random 'Did You Know?' fact.
     """
-    return templates.TemplateResponse("index.html", {"request": request})
+    fact = random.choice(FACTS)
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "fact_short": fact["short"],
+            "fact_detail": fact["detail"],
+        }
+    )
 
+# API endpoint for facts
+@app.get("/fact")
+async def get_fact():
+    """Return a random 'Did You Know?' fact."""
+    try:
+        fact = random.choice(FACTS)
+        return JSONResponse(fact)
+    except Exception as e:
+        return JSONResponse({"error": str(e)}, status_code=500)
 
+# API endpoint for image upload and classification
 @app.post("/predict_image")
 async def predict_image(image: UploadFile = File(...)):
     """
@@ -59,7 +73,7 @@ async def predict_image(image: UploadFile = File(...)):
     except Exception as e:
         return JSONResponse({"error": str(e)}, status_code=400)
 
-
+# API endpoint for text input and classification
 @app.post("/predict_text")
 async def predict_text(data: dict):
     """
@@ -100,9 +114,8 @@ async def predict_text(data: dict):
         })
     except Exception as e:
         return JSONResponse({"error": str(e)}, status_code=400)
-# ----------------------------
-# MAIN ENTRY POINT
-# ----------------------------
+
+# Run the app with Uvicorn
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("app:app", host="127.0.0.1", port=8000, reload=True)
