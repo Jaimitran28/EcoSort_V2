@@ -138,11 +138,22 @@ header .btn-primary:hover {
 .badge {
   background: linear-gradient(135deg, #00c2ff, #27e2a4);
   color: white;
-  font-size: 0.75rem;
+  font-size: 0.875rem; /* slightly bigger than 0.75rem but smaller than predictedLabel */
   font-weight: 600;
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
 }
+
+#micButton.listening i {
+  color: #00c2ff; /* glowing color */
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
 
 /* Theme Colors */
 .theme-trash {
