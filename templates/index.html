@@ -33,7 +33,7 @@
       <!-- Text input -->
       <div class="flex gap-2 mb-6">
         <input id="textInput" type="text" placeholder="Type here…" class="flex-1 rounded-2xl bg-white/10 border border-white/15 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-400/50" />
-        <button id="micButton" class="btn-secondary"><i data-lucide="mic"></i> </button>
+        <button id="micButton" class="btn-secondary">🎤</button>
         <button id="predictTextBtn" class="btn-primary"><i data-lucide="cpu"></i> Predict</button>
       </div>
 
@@ -115,22 +115,22 @@
       <div id="resultCard" class="hidden">
         <div class="flex items-center justify-between mb-4">
           <div>
-            <div class="text-white/70 text-xs">Predicted category</div>
+            <div class="text-gray-200 text-lg italic font-serif mb-2 tracking-wide">Predicted category</div>
             <div id="predictedLabel" class="text-2xl font-extrabold mt-1">—</div>
           </div>
-          <span id="predictedBadge" class="badge">—</span>
+          <span id="predictedBadge" class="badge"># <span id="badgeText">—</span></span>
         </div>
         <div>
-          <div class="text-white/70 text-xs mb-2">Confidence</div>
+          <div class="text-gray-200 text-lg italic font-serif mb-2 tracking-wide">Confidence</div>
           <div class="progress mb-4"><span id="confidenceBar" style="width:0%"></span></div>
         </div>
         <div>
-          <div class="text-white/70 text-xs mb-2">Top label(s)</div>
-          <div id="topLabels" class="text-sm">—</div>
+          <div class="text-gray-200 text-lg italic font-serif mb-2 tracking-wide">Top Labels</div>
+          <div id="topLabels" class="text-base text-white/90 leading-relaxed">—</div>
         </div>
         <div class="mt-6">
-          <div class="text-white/70 text-xs mb-2">Disposal tips</div>
-          <ul id="tipsList" class="tips text-sm leading-relaxed"></ul>
+          <div class="text-gray-200 text-lg italic font-serif mb-2 tracking-wide">Disposal Tips</div>
+          <ul id="tipsList" class="text-base text-white/90 leading-relaxed">—</ul>
         </div>
         <div id="locationStatus" style="font-size: 12px; opacity: 0.7; margin-top: 6px;"></div>
     </section>
